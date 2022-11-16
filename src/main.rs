@@ -1,12 +1,24 @@
 pub mod state;
-use state::Game;
+use state::Life;
+use std;
 
 fn main() {
-    let mut game: Game = Game::new();
+    let str_args = std::env::args().nth(1).expect("No turn count provided. Please enter the number of turns. Zero will loop until stopped. ");
+    
+    let turns: i32 = str_args.parse::<i32>().unwrap();
 
-    game.draw();
+    let mut life: Life = Life::new();
     
-    game.turn();
-    
-    game.draw();
+    if turns <= 0 {
+        loop {
+            life.draw();
+            life.turn();
+        }
+    }
+    else {
+        for _ in 0..turns {
+            life.turn();
+            life.draw();
+        };
+    }
 }

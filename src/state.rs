@@ -1,45 +1,49 @@
-// use rand::{Rng, thread_rng};
+use rand::random;
+use std::process::Command;
 
-const X_SIZE: usize = 50;
-const Y_SIZE: usize = 200;
 
-pub struct Game {
-    x_size: usize,
-    y_size: usize,
+pub struct Life {
+    pub x_size: usize,
+    pub y_size: usize,
     pub grid: Vec<Vec<bool>>,
-    pub turn: i32,
     // pub active: bool,
-    pub blocks: (char,char),
+    blocks: (char,char),
 }
 
-impl Game {
-    // pub fn new(size: (x,y)) -> Self {
+const DEFAULT_X_SIZE: usize = 200;
+const DEFAULT_Y_SIZE: usize = 50;
+
+/// Game implementation, creates grid and fills it with dead or alive cells at random.
+impl Life {
     pub fn new() -> Self {
-        // let bool_vec: Vec<bool> = vec![true; 50];
-        // for mut _val in &bool_vec {
-        //     _val = {
-        //         let mut rng = thread_rng();
-        //         let bool = rng.gen_bool(0.5);
-        //         bool
-        //     }
-        // }
-        // let mut vec_grid: Vec<Vec<bool>> = vec![bool_vec; GRIDSIZE];
-        Game {
-            // x_size: size.0,
-            // y_size: size.1,
-            x_size: X_SIZE,
-            y_size: Y_SIZE,
-            grid: vec![vec![true; Y_SIZE]; X_SIZE],
-            turn: 0,
-            // active: true,
+        Life {
+            x_size: DEFAULT_X_SIZE,
+            y_size: DEFAULT_Y_SIZE,
+            // grid: vec![vec![random(); x_size]; y_size],
+            // Grid is initalized using populate
+            grid: Self::populate(DEFAULT_X_SIZE, DEFAULT_Y_SIZE),
             blocks: ('░','█'),
         }
     }
     
+    /// Creates a 2D vector of random booleans
+    fn populate(x_size: usize, y_size: usize) -> Vec<Vec<bool>> {
+        let mut y: Vec<Vec<bool>> = Vec::new();
+        for _ in 0..y_size {
+            let mut x: Vec<bool> = Vec::new();   
+            for _ in 0..x_size{
+                x.push(random());
+            };
+            y.push(x);
+        };
+        return y
+    }
+    
     fn coords_to_flip(&self) -> Vec<(usize, usize)> {
+        // Vector to push cells to be flipped
         let mut coords: Vec<(usize,usize)> = Vec::new();
-        for x in 0..self.x_size-1 as usize {
-            let left = if x > 0 {
+        for x in 0..self.x_size {
+            let left: usize = if x > 0 {
                 x - 1
             } else {
                 self.x_size-1
@@ -50,7 +54,7 @@ impl Game {
                 0
             };
 
-            for y in 0..self.y_size{
+            for y in 0..self.y_size {
                 let up = if y > 0 {
                     y - 1
                 } else {
@@ -62,22 +66,27 @@ impl Game {
                     0
                 };
 
+                // Counts the neighbors in the 8 possible locations around the cell
                 let neighbors = 
-                    self.grid[left][up] as u8 + 
-                    self.grid[x][up] as u8 + 
-                    self.grid[right][up] as u8 +
-                    self.grid[right][y] as u8 +
-                    self.grid[right][down] as u8 +
-                    self.grid[x][down] as u8 +
-                    self.grid[left][down] as u8 +
-                    self.grid[left][y] as u8;
-                if self.grid[x][y] {
+                    self.grid[up][x] as u8 +
+                    self.grid[up][right] as u8 + 
+                    self.grid[y][right] as u8 + 
+                    self.grid[down][right] as u8 +
+                    self.grid[down][x] as u8 +
+                    self.grid[down][left] as u8 +
+                    self.grid[y][left] as u8 +
+                    self.grid[up][left] as u8;
+                // Decides whether to flip or leave cell by checking against rules
+                if self.grid[y][x] {
+                    // If over 3, neighbors, cell dies to overpopulation
+                    // If under 3, cell dies to underpopulation
                     if neighbors < 2 || neighbors > 3 {
-                        coords.push((x,y));
+                        coords.push((y,x));
                     }
                 } else {
+                    // If a dead cell has three neighbors, bring it to life
                     if neighbors == 3 {
-                        coords.push((x,y));
+                        coords.push((y,x));
                     }
                 }
             }
@@ -87,16 +96,23 @@ impl Game {
     
     pub fn turn(&mut self) {
         for cell in self.coords_to_flip() {
+            // Flip cells at all coordinates returned by coords_to_flip()
             self.grid[cell.0][cell.1] = !self.grid[cell.0][cell.1];
         }
     }
     
     pub fn draw(self: &Self) {
-        for x in 0..self.x_size as usize {
-            for y in 0..self.y_size as usize {
-                match self.grid[x][y] {
-                    false => print!("{}",self.blocks.0),
-                    true => print!("{}",self.blocks.1),
+        if cfg!(unix) {
+            Command::new("clear").status().unwrap();
+        } else if cfg!(windows) {
+            Command::new("cls").status().unwrap();
+        }
+        // Prints entire grid
+        for vec in &self.grid {
+            for cell in vec {
+                match cell {
+                    false => print!("{}",self.blocks.0), // █ Alive
+                    true => print!("{}",self.blocks.1), //  ░ Dead
                 }
             }
             print!("\n")

@@ -5,23 +5,19 @@ use std::process::Command;
 pub struct Life {
     pub x_size: usize,
     pub y_size: usize,
-    pub grid: Vec<Vec<bool>>,
-    // pub active: bool,
+    grid: Vec<Vec<bool>>,
     blocks: (char,char),
 }
 
-const DEFAULT_X_SIZE: usize = 200;
-const DEFAULT_Y_SIZE: usize = 50;
 
 /// Game implementation, creates grid and fills it with dead or alive cells at random.
 impl Life {
-    pub fn new() -> Self {
+    pub fn new(x: i32, y: i32) -> Self {
         Life {
-            x_size: DEFAULT_X_SIZE,
-            y_size: DEFAULT_Y_SIZE,
-            // grid: vec![vec![random(); x_size]; y_size],
+            x_size: x as usize,
+            y_size: y as usize,
             // Grid is initalized using populate
-            grid: Self::populate(DEFAULT_X_SIZE, DEFAULT_Y_SIZE),
+            grid: Self::populate(x as usize, y as usize),
             blocks: ('░','█'),
         }
     }
@@ -39,6 +35,7 @@ impl Life {
         return y
     }
     
+    /// Finds coordinates on grid to be flipped
     fn coords_to_flip(&self) -> Vec<(usize, usize)> {
         // Vector to push cells to be flipped
         let mut coords: Vec<(usize,usize)> = Vec::new();
@@ -94,6 +91,7 @@ impl Life {
         return coords;
     }
     
+    /// Executes one 'turn', flipping coordinates according to the Game of Life rules
     pub fn turn(&mut self) {
         for cell in self.coords_to_flip() {
             // Flip cells at all coordinates returned by coords_to_flip()
@@ -101,6 +99,7 @@ impl Life {
         }
     }
     
+    /// Draws grid to terminal
     pub fn draw(self: &Self) {
         if cfg!(unix) {
             Command::new("clear").status().unwrap();

@@ -12,7 +12,7 @@ pub struct Life {
 
 /// Game implementation, creates grid and fills it with dead or alive cells at random.
 impl Life {
-    pub fn new(x: i32, y: i32) -> Self {
+    pub fn new(x: u16, y: u16) -> Self {
         Life {
             x_size: x as usize,
             y_size: y as usize,
@@ -20,6 +20,11 @@ impl Life {
             grid: Self::populate(x as usize, y as usize),
             blocks: ('░','█'),
         }
+    }
+    
+    pub fn empty(&mut self, x: u16, y: u16) -> &Life {
+        self.grid = vec![vec![false; y as usize]; x as usize];
+        self
     }
     
     /// Creates a 2D vector of random booleans

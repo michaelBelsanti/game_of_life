@@ -1,41 +1,49 @@
 pub mod state;
 use state::Life;
 use clap::Parser;
-use termsize;
+use termion;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-   /// Number of columns
-   #[arg(short, long, default_value_t = 0)]
-   x: i32,
+    /// Number of columns
+    #[arg(short, long, default_value_t = 0)]
+    x: u16,
 
-   /// Number of rows
-   #[arg(short, long, default_value_t = 0)]
-   y: i32,
+    /// Number of rows
+    #[arg(short, long, default_value_t = 0)]
+    y: u16,
+    
+    #[arg(short, long, default_value_t = false)]
+    interactive: bool,
 }
 
 fn main() {
     // CLI argument matching
     let args_parse = Args::parse();
     
-    let termsize::Size {rows, cols} = termsize::get().unwrap();
-
-    let args: (i32,i32) = ( 
+    let (width, height) = termion::terminal_size().unwrap();
+    
+    let size: (u16,u16) = ( 
         if args_parse.x == 0 {
-            cols as i32
+            width as u16
         } else {
             args_parse.x
         },
     if args_parse.y == 0 {
-            rows as i32
+            height as u16
         } else {
             args_parse.y
         }
     );
     
-
-    let mut life: Life = Life::new(args.0,args.1);
+    let mut life: Life = 
+        if args_parse.interactive {
+            // let mut life: Life = Life::new().empty(size.0,size.1);
+            Life::new(size.0,size.1)
+        } else {
+            Life::new(size.0,size.1)
+        };
     
     loop {
         life.draw();

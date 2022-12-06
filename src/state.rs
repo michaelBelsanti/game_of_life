@@ -44,52 +44,26 @@ impl Life {
     fn coords_to_flip(&self) -> Vec<(usize, usize)> {
         // Vector to push cells to be flipped
         let mut coords: Vec<(usize,usize)> = Vec::new();
-        for x in 0..self.x_size {
-            let left: usize = if x > 0 {
-                x - 1
-            } else {
-                self.x_size-1
-            };
-            let right = if x < self.x_size-1 {
-                x + 1
-            } else {
-                0
-            };
 
-            for y in 0..self.y_size {
-                let up = if y > 0 {
-                    y - 1
-                } else {
-                    self.y_size-1
-                };
-                let down = if y < self.y_size-1 {
-                    y + 1
-                } else {
-                    0
-                };
-
-                // Counts the neighbors in the 8 possible locations around the cell
-                let neighbors = 
-                    self.grid[up][x] as u8 +
-                    self.grid[up][right] as u8 + 
-                    self.grid[y][right] as u8 + 
-                    self.grid[down][right] as u8 +
-                    self.grid[down][x] as u8 +
-                    self.grid[down][left] as u8 +
-                    self.grid[y][left] as u8 +
-                    self.grid[up][left] as u8;
-                // Decides whether to flip or leave cell by checking against rules
-                if self.grid[y][x] {
-                    // If over 3, neighbors, cell dies to overpopulation
-                    // If under 3, cell dies to underpopulation
-                    if neighbors < 2 || neighbors > 3 {
-                        coords.push((y,x));
+        for (y, row) in self.grid.iter().enumerate() {
+            for (x, &cell) in row.iter().enumerate() {
+                let mut neighbors = 0;
+                // Uses `saturiating_sub/add` to prevent overflows
+                for yy in y.saturating_sub(1)..=y.saturating_add(1) {
+                    for xx in x.saturating_sub(1)..=x.saturating_add(1) {
+                        if yy == y && xx == x {
+                            continue;
+                        }
+                        if yy < self.grid.len() && xx < row.len() {
+                            // If true, will add +1
+                            neighbors += self.grid[yy][xx] as u8;
+                        }
                     }
-                } else {
-                    // If a dead cell has three neighbors, bring it to life
-                    if neighbors == 3 {
-                        coords.push((y,x));
-                    }
+                }
+                if cell && ( neighbors < 2 || neighbors > 3 ) {
+                    coords.push((y,x));
+                } else if !cell && neighbors == 3 {
+                    coords.push((y,x));
                 }
             }
         }

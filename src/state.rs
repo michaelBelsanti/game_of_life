@@ -1,10 +1,10 @@
 use rand::random;
-use std::process::Command;
+use termion::clear;
 
 
 pub struct Life {
-    pub x_size: usize,
-    pub y_size: usize,
+    x_size: usize,
+    y_size: usize,
     grid: Vec<Vec<bool>>,
     blocks: (char,char),
 }
@@ -20,11 +20,6 @@ impl Life {
             grid: Self::populate(x as usize, y as usize),
             blocks: ('░','█'),
         }
-    }
-    
-    pub fn empty(&mut self, x: u16, y: u16) -> &Life {
-        self.grid = vec![vec![false; y as usize]; x as usize];
-        self
     }
     
     /// Creates a 2D vector of random booleans
@@ -47,27 +42,35 @@ impl Life {
 
         for (y, row) in self.grid.iter().enumerate() {
             for (x, &cell) in row.iter().enumerate() {
-                let mut neighbors = 0;
-                // Uses `saturiating_sub/add` to prevent overflows
-                for yy in y.saturating_sub(1)..=y.saturating_add(1) {
-                    for xx in x.saturating_sub(1)..=x.saturating_add(1) {
-                        if yy == y && xx == x {
-                            continue;
-                        }
-                        if yy < self.grid.len() && xx < row.len() {
-                            // If true, will add +1
-                            neighbors += self.grid[yy][xx] as u8;
-                        }
-                    }
-                }
-                if cell && ( neighbors < 2 || neighbors > 3 ) {
-                    coords.push((y,x));
-                } else if !cell && neighbors == 3 {
-                    coords.push((y,x));
+                let neighbors = self.count_neighbors(y, x);
+                match (cell, neighbors) {
+                    // If live cell is over or underpopulated, it dies
+                    // If dead cell has three living neighbors, it comes to live
+                    (true, n) if n < 2 || n > 3 => coords.push((y, x)),
+                    (false, 3) => coords.push((y, x)),
+                    _ => {}
                 }
             }
         }
         return coords;
+    }
+
+    /// Returns the number of cells that neighbor the cell at the given coordinates
+    fn count_neighbors(&self, y: usize, x: usize) -> u8 {
+        let mut neighbors = 0;
+        // Uses `saturiating_sub/add` to prevent overflows
+        for yy in y.saturating_sub(1)..=y.saturating_add(1) {
+            for xx in x.saturating_sub(1)..=x.saturating_add(1) {
+                if yy == y && xx == x {
+                    continue;
+                }
+                if yy < self.y_size && xx < self.x_size {
+                    // If true, will add +1
+                    neighbors += self.grid[yy][xx] as u8;
+                }
+            }
+        }
+        neighbors
     }
     
     /// Executes one 'turn', flipping coordinates according to the Game of Life rules
@@ -80,11 +83,7 @@ impl Life {
     
     /// Draws grid to terminal
     pub fn draw(self: &Self) {
-        if cfg!(unix) {
-            Command::new("clear").status().unwrap();
-        } else if cfg!(windows) {
-            Command::new("cls").status().unwrap();
-        }
+        print!("{}",clear::All);
         // Prints entire grid
         for vec in &self.grid {
             for cell in vec {

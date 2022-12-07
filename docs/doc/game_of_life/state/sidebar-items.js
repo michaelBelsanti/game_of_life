@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["Life","Strcuture containing game state"]]};

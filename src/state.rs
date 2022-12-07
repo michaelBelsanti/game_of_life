@@ -2,6 +2,7 @@ use rand::random;
 use termion::clear;
 
 
+/// Strcuture containing game state
 pub struct Life {
     x_size: usize,
     y_size: usize,
@@ -10,8 +11,9 @@ pub struct Life {
 }
 
 
-/// Game implementation, creates grid and fills it with dead or alive cells at random.
+/// Game implementation
 impl Life {
+    /// Creates new grid and fills it with dead or alive cells at random
     pub fn new(x: u16, y: u16) -> Self {
         Life {
             x_size: x as usize,
@@ -35,9 +37,9 @@ impl Life {
         return y
     }
     
-    /// Finds coordinates on grid to be flipped
+    /// Returns a vector of tuples (y,x) which contains all coordinates on grid to be flipped
     fn coords_to_flip(&self) -> Vec<(usize, usize)> {
-        // Vector to push cells to be flipped
+        // Vector that will contain coords to be flipped
         let mut coords: Vec<(usize,usize)> = Vec::new();
 
         for (y, row) in self.grid.iter().enumerate() {
@@ -81,7 +83,7 @@ impl Life {
         }
     }
     
-    /// Draws grid to terminal
+    /// Clears terminal then draws grid
     pub fn draw(self: &Self) {
         print!("{}",clear::All);
         // Prints entire grid

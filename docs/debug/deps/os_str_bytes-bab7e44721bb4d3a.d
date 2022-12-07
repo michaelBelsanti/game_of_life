@@ -1,0 +1,10 @@
+/Users/michaelbelsanti/Documents/rust/game-of-life/docs/debug/deps/os_str_bytes-bab7e44721bb4d3a.rmeta: /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/lib.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/common/mod.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/common/raw.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/iter.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/pattern.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/raw_str.rs
+
+/Users/michaelbelsanti/Documents/rust/game-of-life/docs/debug/deps/os_str_bytes-bab7e44721bb4d3a.d: /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/lib.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/common/mod.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/common/raw.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/iter.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/pattern.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/raw_str.rs
+
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/lib.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/common/mod.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/common/raw.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/iter.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/pattern.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/os_str_bytes-6.4.0/src/raw_str.rs:

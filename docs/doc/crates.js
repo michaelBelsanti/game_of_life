@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["atty","bitflags","cfg_if","clap","clap_derive","clap_lex","game_of_life","getrandom","heck","libc","numtoa","once_cell","os_str_bytes","ppv_lite86","proc_macro2","proc_macro_error","proc_macro_error_attr","quote","rand","rand_chacha","rand_core","strsim","syn","termcolor","termion","unicode_ident"];

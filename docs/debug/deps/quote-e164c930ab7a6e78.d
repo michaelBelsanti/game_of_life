@@ -1,0 +1,11 @@
+/Users/michaelbelsanti/Documents/rust/game-of-life/docs/debug/deps/quote-e164c930ab7a6e78.rmeta: /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/lib.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/ext.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/format.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/ident_fragment.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/to_tokens.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/runtime.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/spanned.rs
+
+/Users/michaelbelsanti/Documents/rust/game-of-life/docs/debug/deps/quote-e164c930ab7a6e78.d: /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/lib.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/ext.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/format.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/ident_fragment.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/to_tokens.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/runtime.rs /Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/spanned.rs
+
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/lib.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/ext.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/format.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/ident_fragment.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/to_tokens.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/runtime.rs:
+/Users/michaelbelsanti/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.21/src/spanned.rs:

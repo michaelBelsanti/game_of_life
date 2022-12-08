@@ -37,16 +37,7 @@ fn main() {
         }
     );
     
-    let mut life: Life = 
-        if args_parse.interactive {
-            // let mut life: Life = Life::new().empty(size.0,size.1);
-            Life::new(size.0,size.1)
-        } else {
-            Life::new(size.0,size.1)
-        };
+    let mut life = Life::new(size.0,size.1);
     
-    loop {
-        life.draw();
-        life.turn();
-    }
+    life.play();
 }

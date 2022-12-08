@@ -1,6 +1,9 @@
 use rand::random;
 use termion::clear;
+use std::thread::sleep;
+use std::time::{Duration, Instant};
 
+const PAUSE: u64 = 100;
 
 /// Strcuture containing game state
 pub struct Life {
@@ -84,7 +87,7 @@ impl Life {
     }
     
     /// Clears terminal then draws grid
-    pub fn draw(self: &Self) {
+    pub fn draw(&self) {
         print!("{}",clear::All);
         // Prints entire grid
         for vec in &self.grid {
@@ -95,6 +98,18 @@ impl Life {
                 }
             }
             print!("\n")
+        }
+    }
+    /// Plays game by executing turn() and draw() in a loop. Uses a system timer to make turns consistent lengths.
+    pub fn play(&mut self) {
+        loop {
+            let start_time = Instant::now();
+            self.turn();
+            let elapsed_time = start_time.elapsed();
+            if elapsed_time < Duration::from_millis(PAUSE) {
+                sleep(Duration::from_millis(PAUSE) - elapsed_time);
+            }
+            self.draw();
         }
     }
 }

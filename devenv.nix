@@ -2,7 +2,7 @@
 
 {
   packages = with pkgs; [ 
-    pkgs.rust-analyzer
+    rust-analyzer
   ];
 
   enterShell = ''

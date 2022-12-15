@@ -4,13 +4,13 @@ use std::thread::sleep;
 use std::time::{Duration, Instant};
 
 const PAUSE: u64 = 100;
+const BLOCKS: (char,char) = ('░','█');
 
 /// Strcuture containing game state
 pub struct Life {
     x_size: usize,
     y_size: usize,
     grid: Vec<Vec<bool>>,
-    blocks: (char,char),
 }
 
 
@@ -23,7 +23,6 @@ impl Life {
             y_size: y as usize,
             // Grid is initalized using populate
             grid: Self::populate(x as usize, y as usize),
-            blocks: ('░','█'),
         }
     }
     
@@ -93,8 +92,8 @@ impl Life {
         for vec in &self.grid {
             for cell in vec {
                 match cell {
-                    false => print!("{}",self.blocks.0), // █ Alive
-                    true => print!("{}",self.blocks.1), //  ░ Dead
+                    false => print!("{}",BLOCKS.0), // █ Alive
+                    true => print!("{}",BLOCKS.1), //  ░ Dead
                 }
             }
             print!("\n")

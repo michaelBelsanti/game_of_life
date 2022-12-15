@@ -112,3 +112,26 @@ impl Life {
         }
     }
 }
+
+#[test]
+fn test() {
+    // Ensures turn algorith matches Conway's Game of Life
+    // by checking against the 'Blinker' pattern (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
+    let mut life = Life {
+        x_size: 3,
+        y_size: 3, 
+        grid: vec![
+            vec![false,true,false], // ░█░
+            vec![false,true,false], // ░█░
+            vec![false,true,false], // ░█░
+        ],
+    };
+
+    life.turn();
+    
+    assert!(life.grid == [   // After turn pattern should be:
+        [false,false,false], // ░░░
+        [true,true,true],    // ███
+        [false,false,false], // ░░░
+    ]);
+}
